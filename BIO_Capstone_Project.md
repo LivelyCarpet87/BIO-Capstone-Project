@@ -2,11 +2,25 @@
 
 ## Research Question
 
-What is the effect of social distancing (average count of people met per day) on the duration of the infection (measured in days to end of epidemic) and on the total death toll?
+What is the effect of social distancing (average number of people met per day) on the projected length of  (measured in days to end of epidemic) and on the total death toll?
 
 ---
 
 ## The Model
+
+### Assumptions
+
+1. Everyone untouched by the virus is initially susceptible.
+
+2. People who recovered from the virus are immune to it forever. 
+
+3. The population mixes homogeneously every day. 
+
+4. Newborns and death from other causes can be ignored because of their relative significance. 
+
+5. All members of the population are identical in likelihood of contracting, spreading, recovering from, or dying from the virus at any time of year. 
+
+6. The system is assumed to be closed, meaning there is no influx or outflow of persons. 
 
 ### Mathematical Representation
 
@@ -14,120 +28,277 @@ The SIRD model can be represented by the following equations:
 
 $N=S(t)+I(t)+R(t) +D(t)$
 
-$\frac{dS}{dt} = -βI$
+Rate of Change of S(t) = -βI
 
-$\frac{dI}{dt} = βI - \gamma I -\mu I$
+Rate of Change of I(t)$= βI - \gamma I -\mu I$
 
-$\frac{dR}{dt} = \gamma I$
+Rate of Change of R(t)$ = \gamma I$
 
-$\frac{dD}{dt} = \mu I$
+Rate of Change of D(t)$ = \mu I$
 
-$\beta = a \times b \times \frac S{N - D} = \frac{abS}{N - D}$
+$\beta = a \times$ <mark>$b$</mark> $\times \frac S{N - D} = \frac{abS}{N - D}$
 
 ### Independent Variables
 
-$b$ is the number of people an infected person can contact each day. 
+$b$ is the number of people an infected person can contact each day. It is used to calculate $\beta$ and the other rates of change. 
 
 ### Controlled Variables
 
-N is the total population at the beginning of the pandemic. (World population)
+N is the total population at the beginning of the pandemic. (US Population)
 
 $\gamma$ is the recovery rate of this disease. $\gamma = 1/D = 1/7.5$ [Source of 7.5 day recovery](https://www.who.int/bulletin/online_first/20-255695.pdf)
 
-$\mu$ is the mortality rate of this disease.  [5.3%](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7074479/)
+$\mu$ is the mortality rate of this disease.  0.0599 (mortality rate in all cases) / 40 (the data was collected over 40 days) = 0.0014975
 
-$a$ represents the probability a susceptible person is infected after close contact. [on average 7% of close contacts becoming infected](https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30287-5/fulltext)
+$a$ represents the probability a susceptible person is infected after close contact. [On average 6.6% of close contacts become infected](https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30287-5/fulltext)
 
 ### Dependent Variable
 
-The dependent variable is the peak of I(t).
+The dependent variable is length of time, measured in days, until the projected Infectious population drops below 1000 persons. 
 
 ### Mathematical Functions Explained
 
-S(t) is the population susceptible to the new disease at given time t. The initial value is the current estimates of susceptible population. 
+S(t) is the population size susceptible to the new disease at given time t measured in persons. The initial starting value is the current estimate of susceptible population. It changes each day according to the equations given above: each day, a certain percentage of the susceptible population gets infected by a member of the infectious population. 
 
-I(t) is the population infectious with the new disease at given time t. This initial value is based on current extrapolation of the population that has been tested. 
+I(t) is the population infectious with the new disease at given time t. This initial value is based on current extrapolation of the population that has been tested. Each day, it increases by the new susceptible people infected by the infectious population and decreases by the population that just died or got better that day. 
 
-R(t) is the population no longer susceptible to the new disease at given time t due to immunity.  [154000 recovered](https://www.npr.org/sections/coronavirus-live-updates/2020/05/01/849065983/more-than-1-million-people-have-recovered-from-covid-19-worldwide)
+R(t) is the population recovered (and no longer susceptible) to the new disease at the given time t due to immunity.  [154000 recovered](https://www.npr.org/sections/coronavirus-live-updates/2020/05/01/849065983/more-than-1-million-people-have-recovered-from-covid-19-worldwide) Each day it increases by the new amount of newly recovered members of the infectious population. 
 
-D(t) is the population no longer susceptible to the new disease at given time t due to death. This is the current reported death toll.  
+D(t) is the population no longer susceptible to the new disease at given time t due to death. This is the current reported death toll. Each day it increases by the new amount of newly deceased members of the infectious population.
 
 ---
 
 ## Methodology
 
-The methodology is to use the constants and the independent variable to estimate the separate functions. The functions will be estimated using Euler's method with an interval of 1 (day). The resulting function graph will be used to find the dependent variable. 
+The methodology is to use the constants and the independent variable to create estimations of the values for each day for each function. The resulting function values will be parsed for the dependent variable, the day the infectious population decreases below 1000 persons. 
 
-A python script written in Python 3.8 would be used to do the calculations above for different values of the independent variable and print the output in CSV format. A copy of the script can be found in the [Appendix 1](#appendix-1)
+A python script written in Python 3.8 using built-in libraries would be used to do the calculations stated above for different values of the independent variable and print the output in CSV format. A copy of the script can be found in the [Appendix 1](#appendix-1)
 
 ---
 
 ## Data Collected
 
-|     | 7%  | 3%  |
-| --- | --- | --- |
-
-| Avg. People Met/Day | **Days** | **Deaths** | **Days** | **Deaths** |
-| ------------------- | -------- | ---------- | -------- | ---------- |
-| **0.0**             | 48       | 12448.0    | 48       | 12448.0    |
-| **0.5**             | 66       | 16788.0    | 54       | 13997.0    |
-| **1.0**             | 103      | 25724.0    | 63       | 15990.0    |
-| **1.5**             | 220      | 54389.0    | 74       | 18639.0    |
-| **2.0**             | 779      | 444470.0   | 89       | 22332.0    |
-| **2.5**             | 382      | 1577075.0  | 112      | 27842.0    |
-| **3.0**             | 258      | 2289605.0  | 150      | 36894.0    |
-| **3.5**             | 204      | 2729829.0  | 220      | 54389.0    |
-| **4.0**             | 173      | 3013699.0  | 391      | 100172.0   |
-| **4.5**             | 154      | 3202930.0  | 764      | 296709.0   |
-| **5.0**             | 141      | 3332200.0  | 631      | 799726.0   |
-| **5.5**             | 131      | 3422121.0  | 452      | 1297268.0  |
-| **6.0**             | 124      | 3485471.0  | 355      | 1702279.0  |
-| **6.5**             | 118      | 3530482.0  | 297      | 2027285.0  |
-| **7.0**             | 114      | 3562658.0  | 258      | 2289605.0  |
-| **7.5**             | 111      | 3585732.0  | 230      | 2503147.0  |
-| **8.0**             | 108      | 3602288.0  | 209      | 2678455.0  |
-| **8.5**             | 106      | 3614147.0  | 193      | 2823482.0  |
-| **9.0**             | 104      | 3622620.0  | 180      | 2944270.0  |
-| **9.5**             | 103      | 3628656.0  | 170      | 3045499.0  |
-| **10.0**            | 101      | 3632923.0  | 161      | 3130766.0  |
-| **10.5**            | 100      | 3635919.0  | 154      | 3202930.0  |
-| **11.0**            | 99       | 3638005.0  | 148      | 3264235.0  |
-| **11.5**            | 99       | 3639443.0  | 142      | 3316519.0  |
-| **12.0**            | 98       | 3640423.0  | 138      | 3361238.0  |
-| **12.5**            | 98       | 3641083.0  | 133      | 3399593.0  |
-| **13.0**            | 97       | 3641519.0  | 130      | 3432558.0  |
-| **13.5**            | 97       | 3641803.0  | 127      | 3460963.0  |
-| **14.0**            | 96       | 3641985.0  | 124      | 3485471.0  |
-| **14.5**            | 96       | 3642097.0  | 121      | 3506633.0  |
-| **15.0**            | 96       | 3642169.0  | 119      | 3524941.0  |
-| **15.5**            | 96       | 3642214.0  | 117      | 3540797.0  |
-| **16.0**            | 95       | 3642233.0  | 115      | 3554535.0  |
-| **16.5**            | 95       | 3642244.0  | 114      | 3566447.0  |
-| **17.0**            | 95       | 3642256.0  | 112      | 3576775.0  |
-| **17.5**            | 95       | 3642260.0  | 111      | 3585732.0  |
-| **18.0**            | 94       | 3642257.0  | 109      | 3593501.0  |
-| **18.5**            | 94       | 3642256.0  | 108      | 3600244.0  |
-| **19.0**            | 94       | 3642257.0  | 107      | 3606090.0  |
-| **19.5**            | 94       | 3642257.0  | 106      | 3611153.0  |
-| **20.0**            | 94       | 3642257.0  | 106      | 3615536.0  |
-| **20.5**            | 94       | 3642259.0  | 105      | 3619340.0  |
-| **21.0**            | 94       | 3642257.0  | 104      | 3622620.0  |
-| **21.5**            | 94       | 3642261.0  | 103      | 3625469.0  |
-| **22.0**            | 93       | 3642257.0  | 103      | 3627914.0  |
-| **22.5**            | 93       | 3642260.0  | 102      | 3630030.0  |
-| **23.0**            | 93       | 3642260.0  | 102      | 3631857.0  |
-| **23.5**            | 93       | 3642260.0  | 101      | 3633420.0  |
-| **24.0**            | 93       | 3642255.0  | 101      | 3634761.0  |
-| **24.5**            | 93       | 3642263.0  | 100      | 3635919.0  |
-| **25.0**            | 93       | 3642262.0  | 100      | 3636911.0  |
+| **Avg. People Met/Day** | **Predicted Length of Epidemic (Days)** | **Observations**           |
+| ----------------------- | --------------------------------------- | -------------------------- |
+| 0.0                     | 48                                      | Herd Immunity Not Achieved |
+| 0.05                    | 49                                      | Herd Immunity Not Achieved |
+| 0.1                     | 51                                      | Herd Immunity Not Achieved |
+| 0.15                    | 52                                      | Herd Immunity Not Achieved |
+| 0.2                     | 54                                      | Herd Immunity Not Achieved |
+| 0.25                    | 55                                      | Herd Immunity Not Achieved |
+| 0.3                     | 57                                      | Herd Immunity Not Achieved |
+| 0.35                    | 59                                      | Herd Immunity Not Achieved |
+| 0.4                     | 61                                      | Herd Immunity Not Achieved |
+| 0.45                    | 63                                      | Herd Immunity Not Achieved |
+| 0.5                     | 65                                      | Herd Immunity Not Achieved |
+| 0.55                    | 67                                      | Herd Immunity Not Achieved |
+| 0.6                     | 70                                      | Herd Immunity Not Achieved |
+| 0.65                    | 72                                      | Herd Immunity Not Achieved |
+| 0.7                     | 75                                      | Herd Immunity Not Achieved |
+| 0.75                    | 78                                      | Herd Immunity Not Achieved |
+| 0.8                     | 81                                      | Herd Immunity Not Achieved |
+| 0.85                    | 85                                      | Herd Immunity Not Achieved |
+| 0.9                     | 89                                      | Herd Immunity Not Achieved |
+| 0.95                    | 93                                      | Herd Immunity Not Achieved |
+| 1.0                     | 97                                      | Herd Immunity Not Achieved |
+| 1.05                    | 102                                     | Herd Immunity Not Achieved |
+| 1.1                     | 108                                     | Herd Immunity Not Achieved |
+| 1.15                    | 114                                     | Herd Immunity Not Achieved |
+| 1.2                     | 121                                     | Herd Immunity Not Achieved |
+| 1.25                    | 128                                     | Herd Immunity Not Achieved |
+| 1.3                     | 137                                     | Herd Immunity Not Achieved |
+| 1.35                    | 147                                     | Herd Immunity Not Achieved |
+| 1.4                     | 158                                     | Herd Immunity Not Achieved |
+| 1.45                    | 171                                     | Herd Immunity Not Achieved |
+| 1.5                     | 186                                     | Herd Immunity Not Achieved |
+| 1.55                    | 203                                     | Herd Immunity Not Achieved |
+| 1.6                     | 224                                     | Herd Immunity Not Achieved |
+| 1.65                    | 250                                     | Herd Immunity Not Achieved |
+| 1.7                     | 281                                     | Herd Immunity Not Achieved |
+| 1.75                    | 320                                     | Herd Immunity Not Achieved |
+| 1.8                     | 370                                     | Herd Immunity Not Achieved |
+| 1.85                    | 432                                     | Herd Immunity Not Achieved |
+| 1.9                     | 511                                     | Herd Immunity Not Achieved |
+| 1.95                    | 604                                     | Herd Immunity Not Achieved |
+| 2.0                     | 699                                     | Herd Immunity Not Achieved |
+| 2.05                    | 767                                     | Herd Immunity Not Achieved |
+| 2.1                     | 786                                     | Herd Immunity Not Achieved |
+| 2.15                    | 759                                     | Herd Immunity Not Achieved |
+| 2.2                     | 710                                     | Herd Immunity Not Achieved |
+| 2.25                    | 655                                     | Herd Immunity Not Achieved |
+| 2.3                     | 604                                     | Herd Immunity Not Achieved |
+| 2.35                    | 557                                     | Herd Immunity Not Achieved |
+| 2.4                     | 517                                     | Herd Immunity Not Achieved |
+| 2.45                    | 482                                     | Herd Immunity Not Achieved |
+| 2.5                     | 452                                     | Herd Immunity Not Achieved |
+| 2.55                    | 426                                     | Herd Immunity Not Achieved |
+| 2.6                     | 403                                     | Herd Immunity Not Achieved |
+| 2.65                    | 382                                     | Herd Immunity Not Achieved |
+| 2.7                     | 364                                     | Herd Immunity Not Achieved |
+| 2.75                    | 348                                     | Herd Immunity Not Achieved |
+| 2.8                     | 334                                     | Herd Immunity Not Achieved |
+| 2.85                    | 320                                     | Herd Immunity Not Achieved |
+| 2.9                     | 309                                     | Herd Immunity Not Achieved |
+| 2.95                    | 298                                     | Herd Immunity Not Achieved |
+| 3.0                     | 288                                     | Herd Immunity Not Achieved |
+| 3.05                    | 279                                     | Herd Immunity Not Achieved |
+| 3.1                     | 270                                     | Herd Immunity Not Achieved |
+| 3.15                    | 262                                     | Herd Immunity Not Achieved |
+| 3.2                     | 255                                     | Herd Immunity Not Achieved |
+| 3.25                    | 249                                     | Herd Immunity Not Achieved |
+| 3.3                     | 242                                     | Herd Immunity Not Achieved |
+| 3.35                    | 237                                     | Herd Immunity Not Achieved |
+| 3.4                     | 231                                     | Herd Immunity Not Achieved |
+| 3.45                    | 226                                     | Herd Immunity Not Achieved |
+| 3.5                     | 221                                     | Herd Immunity Not Achieved |
+| 3.55                    | 217                                     | Herd Immunity Not Achieved |
+| 3.6                     | 212                                     | Herd Immunity Not Achieved |
+| 3.65                    | 208                                     | Herd Immunity Not Achieved |
+| 3.7                     | 204                                     | Herd Immunity Not Achieved |
+| 3.75                    | 201                                     | Herd Immunity Achieved     |
+| 3.8                     | 197                                     | Herd Immunity Achieved     |
+| 3.85                    | 194                                     | Herd Immunity Achieved     |
+| 3.9                     | 191                                     | Herd Immunity Achieved     |
+| 3.95                    | 188                                     | Herd Immunity Achieved     |
+| 4.0                     | 185                                     | Herd Immunity Achieved     |
+| 4.05                    | 183                                     | Herd Immunity Achieved     |
+| 4.1                     | 180                                     | Herd Immunity Achieved     |
+| 4.15                    | 177                                     | Herd Immunity Achieved     |
+| 4.2                     | 175                                     | Herd Immunity Achieved     |
+| 4.25                    | 173                                     | Herd Immunity Achieved     |
+| 4.3                     | 171                                     | Herd Immunity Achieved     |
+| 4.35                    | 169                                     | Herd Immunity Achieved     |
+| 4.4                     | 167                                     | Herd Immunity Achieved     |
+| 4.45                    | 165                                     | Herd Immunity Achieved     |
+| 4.5                     | 163                                     | Herd Immunity Achieved     |
+| 4.55                    | 161                                     | Herd Immunity Achieved     |
+| 4.6                     | 159                                     | Herd Immunity Achieved     |
+| 4.65                    | 158                                     | Herd Immunity Achieved     |
+| 4.7                     | 156                                     | Herd Immunity Achieved     |
+| 4.75                    | 154                                     | Herd Immunity Achieved     |
+| 4.8                     | 153                                     | Herd Immunity Achieved     |
+| 4.85                    | 152                                     | Herd Immunity Achieved     |
+| 4.9                     | 150                                     | Herd Immunity Achieved     |
+| 4.95                    | 149                                     | Herd Immunity Achieved     |
+| 5.0                     | 148                                     | Herd Immunity Achieved     |
+| 5.05                    | 146                                     | Herd Immunity Achieved     |
+| 5.1                     | 145                                     | Herd Immunity Achieved     |
+| 5.15                    | 144                                     | Herd Immunity Achieved     |
+| 5.2                     | 143                                     | Herd Immunity Achieved     |
+| 5.25                    | 142                                     | Herd Immunity Achieved     |
+| 5.3                     | 141                                     | Herd Immunity Achieved     |
+| 5.35                    | 140                                     | Herd Immunity Achieved     |
+| 5.4                     | 139                                     | Herd Immunity Achieved     |
+| 5.45                    | 138                                     | Herd Immunity Achieved     |
+| 5.5                     | 137                                     | Herd Immunity Achieved     |
+| 5.55                    | 136                                     | Herd Immunity Achieved     |
+| 5.6                     | 135                                     | Herd Immunity Achieved     |
+| 5.65                    | 134                                     | Herd Immunity Achieved     |
+| 5.7                     | 133                                     | Herd Immunity Achieved     |
+| 5.75                    | 132                                     | Herd Immunity Achieved     |
+| 5.8                     | 132                                     | Herd Immunity Achieved     |
+| 5.85                    | 131                                     | Herd Immunity Achieved     |
+| 5.9                     | 130                                     | Herd Immunity Achieved     |
+| 5.95                    | 129                                     | Herd Immunity Achieved     |
+| 6.0                     | 129                                     | Herd Immunity Achieved     |
+| 6.05                    | 128                                     | Herd Immunity Achieved     |
+| 6.1                     | 127                                     | Herd Immunity Achieved     |
+| 6.15                    | 126                                     | Herd Immunity Achieved     |
+| 6.2                     | 126                                     | Herd Immunity Achieved     |
+| 6.25                    | 125                                     | Herd Immunity Achieved     |
+| 6.3                     | 125                                     | Herd Immunity Achieved     |
+| 6.35                    | 124                                     | Herd Immunity Achieved     |
+| 6.4                     | 123                                     | Herd Immunity Achieved     |
+| 6.45                    | 123                                     | Herd Immunity Achieved     |
+| 6.5                     | 122                                     | Herd Immunity Achieved     |
+| 6.55                    | 122                                     | Herd Immunity Achieved     |
+| 6.6                     | 121                                     | Herd Immunity Achieved     |
+| 6.65                    | 121                                     | Herd Immunity Achieved     |
+| 6.7                     | 120                                     | Herd Immunity Achieved     |
+| 6.75                    | 120                                     | Herd Immunity Achieved     |
+| 6.8                     | 119                                     | Herd Immunity Achieved     |
+| 6.85                    | 119                                     | Herd Immunity Achieved     |
+| 6.9                     | 118                                     | Herd Immunity Achieved     |
+| 6.95                    | 118                                     | Herd Immunity Achieved     |
+| 7.0                     | 117                                     | Herd Immunity Achieved     |
+| 7.05                    | 117                                     | Herd Immunity Achieved     |
+| 7.1                     | 117                                     | Herd Immunity Achieved     |
+| 7.15                    | 116                                     | Herd Immunity Achieved     |
+| 7.2                     | 116                                     | Herd Immunity Achieved     |
+| 7.25                    | 115                                     | Herd Immunity Achieved     |
+| 7.3                     | 115                                     | Herd Immunity Achieved     |
+| 7.35                    | 115                                     | Herd Immunity Achieved     |
+| 7.4                     | 114                                     | Herd Immunity Achieved     |
+| 7.45                    | 114                                     | Herd Immunity Achieved     |
+| 7.5                     | 114                                     | Herd Immunity Achieved     |
+| 7.55                    | 113                                     | Herd Immunity Achieved     |
+| 7.6                     | 113                                     | Herd Immunity Achieved     |
+| 7.65                    | 113                                     | Herd Immunity Achieved     |
+| 7.7                     | 112                                     | Herd Immunity Achieved     |
+| 7.75                    | 112                                     | Herd Immunity Achieved     |
+| 7.8                     | 112                                     | Herd Immunity Achieved     |
+| 7.85                    | 111                                     | Herd Immunity Achieved     |
+| 7.9                     | 111                                     | Herd Immunity Achieved     |
+| 7.95                    | 111                                     | Herd Immunity Achieved     |
+| 8.0                     | 110                                     | Herd Immunity Achieved     |
 
 ---
 
 ## Graphs
 
-![](/Users/livelycarpet87/Library/Application%20Support/marktext/images/2020-05-18-02-53-03-image.png)
+![](/Users/livelycarpet87/Library/Application%20Support/marktext/images/2020-05-22-17-02-39-image.png)
 
-![](/Users/livelycarpet87/Library/Application%20Support/marktext/images/2020-05-18-02-53-16-image.png)
+
+
+---
+
+## CER
+
+**Claim 1:**
+
+The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not enough quickly enough to increase the immune population to to slow its spread. 
+
+**Evidence 1:**
+
+The projected length of the pandemic is lowest when we meet less than 1 person on average per day. The projected length of the pandemic is the highest when we meet about 2.1 persons on average per day. 
+
+**Reasoning 1:**
+
+When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays herd immunity in the country by the longest possible while maintaining a steady number of infectious people.  
+
+
+
+**Claim 2:**
+
+The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner. 
+
+**Evidence 2:**
+
+The projected length of the pandemic decreases as the amount of people met per day increase above 2.1 persons per day. 
+
+**Reasoning 2:**
+
+Because the increased contact between persons spreads the virus easier, a greater number of people become infected initially but recover and remain immune to the disease. Because of the initial outbreak infects more people, more people are rendered immune to the disease. This slows and eventually halts the spread of the virus, preventing the epidemic from lasting too long. However, this causes a sudden surge in projected infectious population and risks overwhelming hospitals, as well as exposing more people to the virus, increasing total projected deaths. 
+
+---
+
+## Strengths & Limitations
+
+### Strength
+
+1. It is a simplified model, allow users to make good projections without having to simulate the complex behaviors of a society. This allows the model to be faster and more lightweight. 
+
+2. It can accurately predict effects of a new infectious disease in a large population. 
+
+### Limitations
+
+1. It doesn't account for births or deaths from other causes. 
+
+2. It does not account for susceptibility differences in different age groups
+
+3. It cannot model the unique behaviors of a community, which is an issue since the population does not mix homogeneously. 
+
+4. It does not account for self-isolation and contact tracing. 
 
 ---
 
@@ -135,7 +306,6 @@ A python script written in Python 3.8 would be used to do the calculations above
 
 ```python
 import array
-
  #total population
 N = 328200000
 #initial Infectious population
@@ -147,7 +317,9 @@ gamma = 1/7.5
 #Probability at which people die each day. Symptoms end on average after 7.5 days with a 5.3% chance of death
 mu = 0.0599/40
 #Probability person gets infected after close contact
-a = 0.03
+a = 0.066
+
+HIT=0.74
 
 def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
     Susceptible = array.array('d', [N-initialInfectious-initialRecovered]) #Initial Population of succeptible persons
@@ -155,10 +327,15 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
     Recovered = array.array('d', [initialRecovered])
     Deceased = array.array('d', [0])
     days=0
+#    if b_input != 0:
+#        R0=a*b_input*14
+#        HIT=1-1/float(R0)
+#    else:
+#        HIT=0
     #simulate a day of interactions if the count of Infectious population >= 1
-    for i in range (1,1460):
+    for i in range(1,36500):
         #calculate changes in each population
-        beta = (a * b_input * Susceptible[len(Susceptible)-1] / (N - Deceased[len(Deceased)-1]) )
+        beta = float(a * b_input * Susceptible[len(Susceptible)-1]) / (N - Deceased[len(Deceased)-1])
         newSusceptible = Susceptible[len(Susceptible)-1] - round(beta * Infectious[len(Infectious)-1])
         newRemoved = round(gamma * Infectious[len(Infectious)-1]) + round(mu * Infectious[len(Infectious)-1])
         newInfectious = Infectious[len(Infectious)-1] + round(beta * Infectious[len(Infectious)-1]) - newRemoved
@@ -172,18 +349,22 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
         Infectious.append(newInfectious)
         Recovered.append(newRecovered)
         Deceased.append(newDeceased)
-        if(Infectious[len(Infectious)-1]>1000):
+        if(Infectious[len(Infectious)-1] > 1000):
+        #if(newInfectious > 100) and (Recovered[len(Recovered)-1]<=HIT*N):
             days=days+ 1
         else:
-            print( str(b_input) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
-            break
+            if (Recovered[len(Recovered)-1]<=HIT*N):
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + ", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                break
+            #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
+            else:
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved" + ", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                break
         #print(Susceptible[len(Susceptible)-1],Infectious[len(Infectious)-1],Recovered[len(Recovered)-1],Deceased[len(Deceased)-1])
 
 #print the contact/day, total days until infection ends, maximum infectious population, deceased population increase in CSV format
 
-
 #simulate contact/day from 0 to 500 per day
-
-for i in range(0,51):
-    sim(i,N,initialInfectious,initialRecovered,gamma,mu,a)
+for i in range(0,161):
+    sim(float(i)/20,N,initialInfectious,initialRecovered,gamma,mu,a)
 ```
