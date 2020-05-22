@@ -246,7 +246,7 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 
 ## Graphs
 
-![](/Users/livelycarpet87/Library/Application%20Support/marktext/images/2020-05-22-19-03-18-image.png)
+![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedData.png)
 
 
 
