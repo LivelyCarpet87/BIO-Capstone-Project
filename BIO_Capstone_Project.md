@@ -246,7 +246,7 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 
 ## Graphs
 
-![](/Users/livelycarpet87/Library/Application%20Support/marktext/images/2020-05-22-17-02-39-image.png)
+![](/Users/livelycarpet87/Library/Application%20Support/marktext/images/2020-05-22-19-03-18-image.png)
 
 
 
@@ -354,13 +354,14 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
             days=days+ 1
         else:
             if (Recovered[len(Recovered)-1]<=HIT*N):
-                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + ", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + 
++", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
                 break
             #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
             else:
-                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved" + ", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved"  
++", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
                 break
-        #print(Susceptible[len(Susceptible)-1],Infectious[len(Infectious)-1],Recovered[len(Recovered)-1],Deceased[len(Deceased)-1])
 
 #print the contact/day, total days until infection ends, maximum infectious population, deceased population increase in CSV format
 
