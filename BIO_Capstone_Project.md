@@ -26,35 +26,35 @@ What is the effect of social distancing (average number of people met per day) o
 
 The SIRD model can be represented by the following equations:
 
-$N=S(t)+I(t)+R(t) +D(t)$
+N=S(t)+I(t)+R(t) +D(t)
 
 Rate of Change of S(t) = -βI
 
-Rate of Change of I(t)$= βI - \gamma I -\mu I$
+Rate of Change of I(t) = βI - γI -μI
 
-Rate of Change of R(t)$ = \gamma I$
+Rate of Change of R(t) = γ I
 
-Rate of Change of D(t)$ = \mu I$
+Rate of Change of D(t) = μI
 
-$\beta = a \times$ <mark>$b$</mark> $\times \frac S{N - D} = \frac{abS}{N - D}$
+β = abS / (N - D) = (abS) / (N - D)
 
 ### Independent Variables
 
-$b$ is the number of people an infected person can contact each day. It is used to calculate $\beta$ and the other rates of change. 
+b is the number of people an infected person can contact each day. It is used to calculate $\beta$ and the other rates of change. 
 
 ### Controlled Variables
 
 N is the total population at the beginning of the pandemic. (US Population)
 
-$\gamma$ is the recovery rate of this disease. $\gamma = 1/D = 1/7.5$ [Source of 7.5 day recovery](https://www.who.int/bulletin/online_first/20-255695.pdf)
+γ is the recovery rate of this disease. γ = 1/D = 1/7.5 [Source of 7.5 day recovery](https://www.who.int/bulletin/online_first/20-255695.pdf)
 
-$\mu$ is the mortality rate of this disease.  0.0599 (mortality rate in all cases) / 40 (the data was collected over 40 days) = 0.0014975
+μ is the mortality rate of this disease.  0.0599 (mortality rate in all cases) / 40 (the data was collected over 40 days) = 0.0014975
 
-$a$ represents the probability a susceptible person is infected after close contact. [On average 6.6% of close contacts become infected](https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30287-5/fulltext)
+a represents the probability a susceptible person is infected after close contact. [On average 6.6% of close contacts become infected](https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30287-5/fulltext)
 
 ### Dependent Variable
 
-The dependent variable is length of time, measured in days, until the projected Infectious population drops below 1000 persons. 
+The dependent variable is the projected length of the epidemic, measured in days. The epidemic is considered to be over when the Infectious population drops below 1000 persons. 1000 persons was chosen because of its relative insignificance to the US population. 
 
 ### Mathematical Functions Explained
 
@@ -248,8 +248,6 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 
 ![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedData.png)
 
-
-
 ---
 
 ## CER
@@ -265,8 +263,6 @@ The projected length of the pandemic is lowest when we meet less than 1 person o
 **Reasoning 1:**
 
 When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays herd immunity in the country by the longest possible while maintaining a steady number of infectious people.  
-
-
 
 **Claim 2:**
 
@@ -355,12 +351,12 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
         else:
             if (Recovered[len(Recovered)-1]<=HIT*N):
                 print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + 
-+", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                    +", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
                 break
             #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
             else:
                 print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved"  
-+", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                    +", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
                 break
 
 #print the contact/day, total days until infection ends, maximum infectious population, deceased population increase in CSV format
