@@ -2,7 +2,7 @@
 
 ## Research Question
 
-What is the effect of social distancing (average number of people met per day) on the projected length of  (measured in days to end of epidemic) and on the total death toll?
+What is the effect of social distancing (average number of people met per day) on the projected length of COVID-19 epidemic according to the SIRD model (measured in days to end of epidemic)?
 
 ---
 
