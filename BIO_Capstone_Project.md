@@ -254,11 +254,11 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 
 **Claim 1:**
 
-The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not enough quickly enough to increase the immune population to to slow its spread. 
+The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not quickly enough to increase the immune population to slow its spread. 
 
 **Evidence 1:**
 
-The projected length of the pandemic is lowest when we meet less than 1 person on average per day. The projected length of the pandemic is the highest when we meet about 2.1 persons on average per day. 
+The projected length of the pandemic is lowest when each member of the population meet less than 1 person on average per day. The projected length of the pandemic is the highest when each member of the population meet about 2.1 persons on average per day. 
 
 **Reasoning 1:**
 
