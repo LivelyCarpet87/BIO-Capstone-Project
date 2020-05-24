@@ -6,6 +6,12 @@ What is the effect of social distancing (average number of people met per day) o
 
 ---
 
+## Hypothesis
+
+The projected length of the COVID-19 epidemic according to the SIRD model increases with the number of people met per day on average. 
+
+---
+
 ## The Model
 
 ### Assumptions
@@ -77,6 +83,154 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 ---
 
 ## Data Collected
+
+#### Projected Length of Epidemic VS Average Number of People Met (Partial)
+
+| **Avg. People Met/Day** | **Predicted Length of Epidemic (Days)** | **Observations**           |
+| ----------------------- | --------------------------------------- | -------------------------- |
+| 0.0                     | 48                                      | Herd Immunity Not Achieved |
+| 0.05                    | 49                                      | Herd Immunity Not Achieved |
+| 0.1                     | 51                                      | Herd Immunity Not Achieved |
+| 0.15                    | 52                                      | Herd Immunity Not Achieved |
+| 0.2                     | 54                                      | Herd Immunity Not Achieved |
+| 0.25                    | 55                                      | Herd Immunity Not Achieved |
+| 0.3                     | 57                                      | Herd Immunity Not Achieved |
+| 0.35                    | 59                                      | Herd Immunity Not Achieved |
+| 0.4                     | 61                                      | Herd Immunity Not Achieved |
+| 0.45                    | 63                                      | Herd Immunity Not Achieved |
+| 0.5                     | 65                                      | Herd Immunity Not Achieved |
+
+**\* The full data table can be found below in [Appendix 2](#appendix-2)**
+
+---
+
+## Graphs
+
+![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedData.png)
+
+---
+
+## CER
+
+**Claim 1:**
+
+The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not quickly enough to increase the immune population to slow its spread. 
+
+**Evidence 1:**
+
+The projected length of the pandemic is lowest when each member of the population meet less than 1 person on average per day. The projected length of the pandemic is the highest when each member of the population meet about 2.1 persons on average per day. 
+
+**Reasoning 1:**
+
+When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays herd immunity in the country by the longest possible while maintaining a steady number of infectious people.  
+
+**Claim 2:**
+
+The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner. 
+
+**Evidence 2:**
+
+The projected length of the pandemic decreases as the amount of people met per day increase above 2.1 persons per day. 
+
+**Reasoning 2:**
+
+Because the increased contact between persons spreads the virus easier, a greater number of people become infected initially but recover and remain immune to the disease. Because of the initial outbreak infects more people, more people are rendered immune to the disease. This slows and eventually halts the spread of the virus, preventing the epidemic from lasting too long. However, this causes a sudden surge in projected infectious population and risks overwhelming hospitals, as well as exposing more people to the virus, increasing total projected deaths. 
+
+---
+
+## Strengths & Limitations
+
+### Strength
+
+1. It is a simplified model, allow users to make good projections without having to simulate the complex behaviors of a society. This allows the model to be faster and more lightweight. 
+
+2. It can accurately predict effects of a new infectious disease in a large population. 
+
+### Limitations
+
+1. It doesn't account for births or deaths from other causes. 
+
+2. It does not account for susceptibility differences in different age groups
+
+3. It cannot model the unique behaviors of a community, which is an issue since the population does not mix homogeneously. 
+
+4. It does not account for self-isolation and contact tracing. 
+
+---
+
+## Appendix 1
+
+```python
+import array
+ #total population
+N = 328200000
+#initial Infectious population
+initialInfectious = 1470000-260000-88199
+#initial Recovered population
+initialRecovered = 260000
+#Probability at which people recover each day. Symptoms end on average after 7.5 days with a (1 - 5.3%) chance of recovery
+gamma = 1/7.5
+#Probability at which people die each day. Symptoms end on average after 7.5 days with a 5.3% chance of death
+mu = 0.0599/40
+#Probability person gets infected after close contact
+a = 0.066
+
+HIT=0.74
+
+def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
+    Susceptible = array.array('d', [N-initialInfectious-initialRecovered]) #Initial Population of succeptible persons
+    Infectious = array.array('d', [initialInfectious])
+    Recovered = array.array('d', [initialRecovered])
+    Deceased = array.array('d', [0])
+    days=0
+#    if b_input != 0:
+#        R0=a*b_input*14
+#        HIT=1-1/float(R0)
+#    else:
+#        HIT=0
+    #simulate a day of interactions if the count of Infectious population >= 1
+    for i in range(1,36500):
+        #calculate changes in each population
+        beta = float(a * b_input * Susceptible[len(Susceptible)-1]) / (N - Deceased[len(Deceased)-1])
+        newSusceptible = Susceptible[len(Susceptible)-1] - round(beta * Infectious[len(Infectious)-1])
+        newRemoved = round(gamma * Infectious[len(Infectious)-1]) + round(mu * Infectious[len(Infectious)-1])
+        newInfectious = Infectious[len(Infectious)-1] + round(beta * Infectious[len(Infectious)-1]) - newRemoved
+        newRecovered = Recovered[len(Recovered)-1] + round(gamma * Infectious[len(Infectious)-1])
+        newDeceased = Deceased[len(Deceased)-1] + round(mu * Infectious[len(Infectious)-1])
+
+
+
+        #record resulting statistic of each population of that day
+        Susceptible.append(newSusceptible)
+        Infectious.append(newInfectious)
+        Recovered.append(newRecovered)
+        Deceased.append(newDeceased)
+        if(Infectious[len(Infectious)-1] > 1000):
+        #if(newInfectious > 100) and (Recovered[len(Recovered)-1]<=HIT*N):
+            days=days+ 1
+        else:
+            if (Recovered[len(Recovered)-1]<=HIT*N):
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + 
+                    +", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                break
+            #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
+            else:
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved"  
+                    +", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                break
+
+#print the contact/day, total days until infection ends, maximum infectious population, deceased population increase in CSV format
+
+#simulate contact/day from 0 to 500 per day
+for i in range(0,161):
+    sim(float(i)/20,N,initialInfectious,initialRecovered,gamma,mu,a)
+```
+
+---
+
+## Appendix 2
+
+**Projected Length of Epidemic VS Average Number of People Met (Full)**
 
 | **Avg. People Met/Day** | **Predicted Length of Epidemic (Days)** | **Observations**           |
 | ----------------------- | --------------------------------------- | -------------------------- |
@@ -241,127 +395,3 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 | 7.9                     | 111                                     | Herd Immunity Achieved     |
 | 7.95                    | 111                                     | Herd Immunity Achieved     |
 | 8.0                     | 110                                     | Herd Immunity Achieved     |
-
----
-
-## Graphs
-
-![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedData.png)
-
----
-
-## CER
-
-**Claim 1:**
-
-The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not quickly enough to increase the immune population to slow its spread. 
-
-**Evidence 1:**
-
-The projected length of the pandemic is lowest when each member of the population meet less than 1 person on average per day. The projected length of the pandemic is the highest when each member of the population meet about 2.1 persons on average per day. 
-
-**Reasoning 1:**
-
-When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays herd immunity in the country by the longest possible while maintaining a steady number of infectious people.  
-
-**Claim 2:**
-
-The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner. 
-
-**Evidence 2:**
-
-The projected length of the pandemic decreases as the amount of people met per day increase above 2.1 persons per day. 
-
-**Reasoning 2:**
-
-Because the increased contact between persons spreads the virus easier, a greater number of people become infected initially but recover and remain immune to the disease. Because of the initial outbreak infects more people, more people are rendered immune to the disease. This slows and eventually halts the spread of the virus, preventing the epidemic from lasting too long. However, this causes a sudden surge in projected infectious population and risks overwhelming hospitals, as well as exposing more people to the virus, increasing total projected deaths. 
-
----
-
-## Strengths & Limitations
-
-### Strength
-
-1. It is a simplified model, allow users to make good projections without having to simulate the complex behaviors of a society. This allows the model to be faster and more lightweight. 
-
-2. It can accurately predict effects of a new infectious disease in a large population. 
-
-### Limitations
-
-1. It doesn't account for births or deaths from other causes. 
-
-2. It does not account for susceptibility differences in different age groups
-
-3. It cannot model the unique behaviors of a community, which is an issue since the population does not mix homogeneously. 
-
-4. It does not account for self-isolation and contact tracing. 
-
----
-
-## Appendix 1
-
-```python
-import array
- #total population
-N = 328200000
-#initial Infectious population
-initialInfectious = 1470000-260000-88199
-#initial Recovered population
-initialRecovered = 260000
-#Probability at which people recover each day. Symptoms end on average after 7.5 days with a (1 - 5.3%) chance of recovery
-gamma = 1/7.5
-#Probability at which people die each day. Symptoms end on average after 7.5 days with a 5.3% chance of death
-mu = 0.0599/40
-#Probability person gets infected after close contact
-a = 0.066
-
-HIT=0.74
-
-def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
-    Susceptible = array.array('d', [N-initialInfectious-initialRecovered]) #Initial Population of succeptible persons
-    Infectious = array.array('d', [initialInfectious])
-    Recovered = array.array('d', [initialRecovered])
-    Deceased = array.array('d', [0])
-    days=0
-#    if b_input != 0:
-#        R0=a*b_input*14
-#        HIT=1-1/float(R0)
-#    else:
-#        HIT=0
-    #simulate a day of interactions if the count of Infectious population >= 1
-    for i in range(1,36500):
-        #calculate changes in each population
-        beta = float(a * b_input * Susceptible[len(Susceptible)-1]) / (N - Deceased[len(Deceased)-1])
-        newSusceptible = Susceptible[len(Susceptible)-1] - round(beta * Infectious[len(Infectious)-1])
-        newRemoved = round(gamma * Infectious[len(Infectious)-1]) + round(mu * Infectious[len(Infectious)-1])
-        newInfectious = Infectious[len(Infectious)-1] + round(beta * Infectious[len(Infectious)-1]) - newRemoved
-        newRecovered = Recovered[len(Recovered)-1] + round(gamma * Infectious[len(Infectious)-1])
-        newDeceased = Deceased[len(Deceased)-1] + round(mu * Infectious[len(Infectious)-1])
-
-
-
-        #record resulting statistic of each population of that day
-        Susceptible.append(newSusceptible)
-        Infectious.append(newInfectious)
-        Recovered.append(newRecovered)
-        Deceased.append(newDeceased)
-        if(Infectious[len(Infectious)-1] > 1000):
-        #if(newInfectious > 100) and (Recovered[len(Recovered)-1]<=HIT*N):
-            days=days+ 1
-        else:
-            if (Recovered[len(Recovered)-1]<=HIT*N):
-                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + 
-                    +", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
-                break
-            #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
-            else:
-                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved"  
-                    +", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
-                break
-
-#print the contact/day, total days until infection ends, maximum infectious population, deceased population increase in CSV format
-
-#simulate contact/day from 0 to 500 per day
-for i in range(0,161):
-    sim(float(i)/20,N,initialInfectious,initialRecovered,gamma,mu,a)
-```
