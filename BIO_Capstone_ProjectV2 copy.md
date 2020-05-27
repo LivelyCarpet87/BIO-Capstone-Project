@@ -160,8 +160,6 @@ Horn, Austin. ：More Than 1 Million People Have Recovered From COVID-19 Worldwid
 
 ：U.S. and World Population Clock.； *Population Clock*, 3 May 2020, www.census.gov/popclock/.
 
-
-
 ## Appendix 1
 
 **Projected Length of Epidemic VS Average Number of People Met (Full)**
@@ -181,6 +179,9 @@ Horn, Austin. ：More Than 1 Million People Have Recovered From COVID-19 Worldwid
 | 0.5                     | 65                                      | 2.55                                | 426                                                 | 4.6                                 | 159                                                 | 6.65                                | 121                                                 |
 | 0.55                    | 67                                      | 2.6                                 | 403                                                 | 4.65                                | 158                                                 | 6.7                                 | 120                                                 |
 | 0.6                     | 70                                      | 2.65                                | 382                                                 | 4.7                                 | 156                                                 | 6.75                                | 120                                                 |
+
+| **Avg. People Met/Day** | **Predicted Length of Epidemic (Days)** | **Avg. People Met/Day [Continued]** | **Predicted Length of Epidemic (Days) [Continued]** | **Avg. People Met/Day [Continued]** | **Predicted Length of Epidemic (Days) [Continued]** | **Avg. People Met/Day [Continued]** | **Predicted Length of Epidemic (Days) [Continued]** |
+| ----------------------- | --------------------------------------- | ----------------------------------- | --------------------------------------------------- | ----------------------------------- | --------------------------------------------------- | ----------------------------------- | --------------------------------------------------- |
 | 0.65                    | 72                                      | 2.7                                 | 364                                                 | 4.75                                | 154                                                 | 6.8                                 | 119                                                 |
 | 0.7                     | 75                                      | 2.75                                | 348                                                 | 4.8                                 | 153                                                 | 6.85                                | 119                                                 |
 | 0.75                    | 78                                      | 2.8                                 | 334                                                 | 4.85                                | 152                                                 | 6.9                                 | 118                                                 |
@@ -209,6 +210,12 @@ Horn, Austin. ：More Than 1 Million People Have Recovered From COVID-19 Worldwid
 | 1.9                     | 511                                     | 3.95                                | 188                                                 | 6.0                                 | 129                                                 |                                     |                                                     |
 | 1.95                    | 604                                     | 4.0                                 | 185                                                 | 6.05                                | 128                                                 |                                     |                                                     |
 | 2.0                     | 699                                     | 4.05                                | 183                                                 | 6.1                                 | 127                                                 |                                     |                                                     |
+
+
+
+
+
+
 
 **Qualitative Data: Reaching Herd Immunity Threshold (HIT) to End Social Distancing**
 
