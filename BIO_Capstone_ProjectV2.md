@@ -1,18 +1,16 @@
 ## Research Question
 
-What is the effect of social distancing (**average** number of people met per day, incrementing from 0.0 to 8.0 by 0.05) on the projected length of COVID-19 epidemic according to the SIRD model (measured in days to end of epidemic)?
+What is the effect of social distancing (**average** number of people met per day, incrementing from 0.0 to 8.0 by 0.05) on the projected length of COVID-19 epidemic according to the SIRD model (measured in days to end of epidemic)? The end of the epidemic is defined as when the infectious population size is below 1000 persons. 
 
 ## Hypothesis
 
 The **projected length of the COVID-19 epidemic** according to the SIRD model increases with the **average number of people met per day**. 
 
-
-
 ## Background
 
-The purpose of this lab is to use the SIRD model to model the current epidemic and its spread. The lab investigates how the spread of the virus is impacted by the average number of people each person meets each day.
+The purpose of this lab is to use the SIRD model to model the current epidemic and its spread. The lab investigates how the spread of the virus is impacted by the average number of people each person meets each day. 
 
-### The SIRD Model
+### The SIRD Model Explained
 
 #### Assumptions
 
@@ -34,15 +32,15 @@ The SIRD model can be represented by the following equations:
 
 N=S(t)+I(t)+R(t) +D(t)
 
-Rate of Change of S(t) = -¦ÂI
+Rate of Change of S(t) = -$\beta$I
 
-Rate of Change of I(t) = ¦ÂI - ¦ÃI -¦ÌI
+Rate of Change of I(t) = $\beta$I - $\gamma$I -$\mu$I
 
-Rate of Change of R(t) = ¦Ã I
+Rate of Change of R(t) = $\gamma$ I
 
-Rate of Change of D(t) = ¦ÌI
+Rate of Change of D(t) = $\mu$I
 
-¦Â = abS / (N - D) = (abS) / (N - D)
+$\beta$ = abS / (N - D) = (abS) / (N - D)
 
 ## Controlled Variables
 
@@ -76,7 +74,7 @@ D(t) is the population no longer susceptible to the new disease at given time t 
 
 The methodology is to use the constants and the independent variable to create estimations of the values for each day for each function. The resulting function values will be parsed for the dependent variable, the day the infectious population decreases below 1000 persons. The independent variable, **average number** of people met per day, increments from 0.00 (persons/day) to 8.00 (persons/day) by increments of 0.05 (persons/day). 
 
-A python script written in Python 3.8 using built-in libraries would be used to do the calculations stated above for different values of the independent variable and print the output in CSV format. A copy of the script can be found in the the repository. 
+A python script written in Python 3.8 using built-in libraries would be used to do the calculations stated above for different values of the independent variable and print the output in CSV format. A copy of the script can b~~e~~ found in the the repository. 
 
 Steps to reproduce data:
 
@@ -88,7 +86,7 @@ Steps to reproduce data:
 
 3. change directory to the Code folder `cd ./BIO-Capstone-Project/Code`
 
-4. execute `python3 ./CapstoneMethod1V3.py` and the output should be similar to:
+4. execute `python3 ./CapstoneMethod1V3.py` and the output should be similar to ([Link to code](https://github.com/LivelyCarpet87/BIO-Capstone-Project/blob/master/Code/CapstoneMethod1V3.py)):
 
 <img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/TerminalScreenshot.png" alt="" width="801">
 
@@ -110,9 +108,9 @@ Steps to reproduce data:
 
 ## CER
 
-**Claim 1:**
+**Claim:**
 
-The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not quickly enough to increase the immune population to slow its spread. 
+The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not quickly enough to increase the immune population to slow its spread. The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner.
 
 **Evidence 1:**
 
@@ -121,10 +119,6 @@ The projected length of the pandemic is lowest when each member of the populatio
 **Reasoning 1:**
 
 When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays herd immunity in the country by the longest possible while maintaining a steady number of infectious people.  
-
-**Claim 2:**
-
-The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner. 
 
 **Evidence 2:**
 
@@ -142,7 +136,7 @@ Because the increased contact between persons spreads the virus easier, a greate
 
 2. It can accurately predict effects of a new infectious disease in a large population. 
 
-### Limitations
+### Limitations (add improvements)
 
 1. It doesn't account for births or deaths from causes other than COVID-19. Because of this, the susceptible population will always slowly increase, the real-world result should be longer than the projected length by the SIRD model. 
 
