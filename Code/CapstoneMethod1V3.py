@@ -48,11 +48,11 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
             days=days+ 1
         else:
             if (Recovered[len(Recovered)-1]<=HIT*N):
-                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Not Achieved" + ", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity For Activity Without Distancing Not Achieved")
                 break
             #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
             else:
-                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity Achieved" + ", about "+str(round(Deceased[len(Deceased)-1]/float(24280000)*100,4)) + "% the Shanghai population died")
+                print(","+str(b_input) + ","+ str(days) + ",Herd Immunity For Activity Without Distancing Achieved")
                 break
         #print(Susceptible[len(Susceptible)-1],Infectious[len(Infectious)-1],Recovered[len(Recovered)-1],Deceased[len(Deceased)-1])
 

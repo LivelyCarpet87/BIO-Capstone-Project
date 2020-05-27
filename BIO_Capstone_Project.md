@@ -4,13 +4,9 @@
 
 What is the effect of social distancing (average number of people met per day) on the projected length of COVID-19 epidemic according to the SIRD model (measured in days to end of epidemic)?
 
----
-
 ## Hypothesis
 
 The projected length of the COVID-19 epidemic according to the SIRD model increases with the number of people met per day on average. 
-
----
 
 ## The Model
 
@@ -72,8 +68,6 @@ R(t) is the population recovered (and no longer susceptible) to the new disease 
 
 D(t) is the population no longer susceptible to the new disease at given time t due to death. This is the current reported death toll. Each day it increases by the new amount of newly deceased members of the infectious population.
 
----
-
 ## Methodology
 
 The methodology is to use the constants and the independent variable to create estimations of the values for each day for each function. The resulting function values will be parsed for the dependent variable, the day the infectious population decreases below 1000 persons. 
@@ -102,13 +96,9 @@ A python script written in Python 3.8 using built-in libraries would be used to 
 
 **\* The full data table can be found below in [Appendix 2](#appendix-2)**
 
----
-
 ## Graphs
 
 ![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedData.png)
-
----
 
 ## CER
 
@@ -136,8 +126,6 @@ The projected length of the pandemic decreases as the amount of people met per d
 
 Because the increased contact between persons spreads the virus easier, a greater number of people become infected initially but recover and remain immune to the disease. Because of the initial outbreak infects more people, more people are rendered immune to the disease. This slows and eventually halts the spread of the virus, preventing the epidemic from lasting too long. However, this causes a sudden surge in projected infectious population and risks overwhelming hospitals, as well as exposing more people to the virus, increasing total projected deaths. 
 
----
-
 ## Strengths & Limitations
 
 ### Strength
@@ -155,8 +143,6 @@ Because the increased contact between persons spreads the virus easier, a greate
 3. It cannot model the unique behaviors of a community, which is an issue since the population does not mix homogeneously. 
 
 4. It does not account for self-isolation and contact tracing. 
-
----
 
 ## Appendix 1
 
