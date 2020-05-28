@@ -12,8 +12,8 @@ gamma = 1/7.5
 mu = 0.0599/40
 #Probability person gets infected after close contact
 a = 0.066
-
-HIT=0.74
+#Herd Immunity Level Required for Life without Social Distancing. We meet 22 people per day on average(Meier)
+HIT=1-1/(22*a)
 
 def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
     Susceptible = array.array('d', [N-initialInfectious-initialRecovered]) #Initial Population of succeptible persons

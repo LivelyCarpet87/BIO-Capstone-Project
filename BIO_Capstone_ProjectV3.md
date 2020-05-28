@@ -1,16 +1,20 @@
+Tyllis Xu
+
+Ms MacCarter
+
+Biology
+
+March 29^th^ 2020
+
 ## Research Question
 
 What is the effect of social distancing (**average** number of people met per day, incrementing from 0.0 to 10.0 by 0.05) on the projected length of COVID-19 epidemic according to the SIRD model (measured in days to end of epidemic)? The end of the epidemic is defined as when the infectious population size is below 1000 persons. 
-
-## Hypothesis
-
-The **projected length of the COVID-19 epidemic** according to the SIRD model increases with the **average number of people met per day**. 
 
 ## Background
 
 ### How COVID-19 Spreads
 
-The COVID-19 infectious disease is caused by the SARS-CoV-2, spread primarily between close contact through droplets carrying the virus, produced when coughing, sneezing, or talking. Less frequently, the virus is spread by touching contaminated objects then touching one's face. 
+The COVID-19 infectious disease is caused by the SARS-CoV-2 virus. The virus is spread primarily through droplets carrying the virus produced when coughing, sneezing, or talking in close proximity. Less frequently, the virus is spread by touching contaminated objects then touching one's face. 
 
 ### Goal
 
@@ -18,7 +22,7 @@ Currently, the projected length of the pandemic is uncertain:
 
 > "Its going to be a matter of several weeks to a few months for sure. ... The duration depends on the effectiveness of the controls"
 > 
-> -- Dr. Anthony Fauci (ABC News on March 15^th^)
+> -- Dr. Anthony Fauci ([ABC News on March 15^th^](#abc-news))
 
 Because of the dynamic nature of the social distancing policies compounded with incomplete information, it is difficult to project the exact duration of the pandemic. This lab aims to explore one of the controls, social distancing, and its impact on the projected length using the SIRD model and real world values. 
 
@@ -60,19 +64,29 @@ S(t) is the population size susceptible to the new disease at given time t measu
 
 I(t) is the population infectious with the new disease at given time t. This initial value is based on current extrapolation of the population that has been tested. Each day, it increases by the new susceptible people infected by the infectious population and decreases by the population that just died or got better that day.
 
-R(t) is the population recovered (and no longer susceptible) to the new disease at the given time t due to immunity. [154000 recovered](https://www.npr.org/sections/coronavirus-live-updates/2020/05/01/849065983/more-than-1-million-people-have-recovered-from-covid-19-worldwide) Each day it increases by the new amount of newly recovered members of the infectious population.
+R(t) is the population recovered (and no longer susceptible) to the new disease at the given time t due to immunity. Each day it increases by the new amount of newly recovered members of the infectious population. 
 
 D(t) is the population no longer susceptible to the new disease at given time t due to death. Each day it increases by the new amount of newly deceased members of the infectious population.
+
+## Hypothesis
+
+The **projected length of the COVID-19 epidemic** according to the SIRD model increases with the **average number of people met per day**. Because the virus spreads more when people interact more, I believe the projected length of the pandemic would increase if the average
 
 ## Controlled Variables
 
 N is the total population at the beginning of the pandemic. US Population=328.2 million people
 
-$\gamma$ is the recovery rate of this disease. ¦Ã = 1/D = 1/7.5 This is because the length of recovery is 7.5 days, so each day there is a 1/7.5 chance of recovery. [Source](https://www.who.int/bulletin/online_first/20-255695.pdf)
+$\gamma$ is the recovery rate of this disease. ¦Ã = 1/D = 1/7.5 This is because the length of recovery is 7.5 days, so each day there is a 1/7.5 chance of recovery. ([Hamaz](#hamzah))
 
-$\mu$ is the mortality rate of this disease. 0.0599 (mortality rate in all cases) / 40 (days) = 0.0014975 chance of dying per day. (Sourced from [Google COVID-19 data](https://www.google.com/search?q=covid+19+cases+usa) on May 3rd)
+$\mu$ is the mortality rate of this disease. 0.0599 (mortality rate in all cases) / 40 (days) = 0.0014975 chance of dying per day. ([Cases Overview](#cases-overview))
 
-a represents the probability a susceptible person is infected after close contact. On average, 6.6% of close contacts are infected. [Source](https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30287-5/fulltext)
+a represents the probability a susceptible person is infected after close contact. On average, 6.6% of close contacts are infected. ([Bi](#bi))
+
+The initial infectious population is 1470000 cases -260000 recovered-88199 deceased = 1,121,801 people ([Cases Overview](#cases-overview))
+
+The initial recovered population is 260000 people. ([Cases Overview](#cases-overview))
+
+The initial deceased population is 88199 people. ([Cases Overview](#cases-overview))
 
 ## Dependent Variable
 
@@ -80,7 +94,7 @@ The dependent variable is the projected length of the epidemic, measured in days
 
 ## Independent Variable
 
-b is the average number of people an infected person can contact each day. It is used to calculate $\beta$ and the other rates of change. For the experiment, the average number of people met per day incremented from 0.00 to 10.00 by increments of 0.05. On average, we meet about 22 persons per day (Meier), but because many guidelines prohibit gatherings of more than 10 people, the study only explores meeting to up to 10 people on average per day. 
+b is the average number of people an infected person can contact each day. It is used to calculate $\beta$ and the other rates of change. For the experiment, the average number of people met per day incremented from 0.00 to 10.00 by increments of 0.05. On average, we meet about 22 persons per day ([Meier](#meier)), but because guidelines prohibit gatherings of more than 10 people ([New Jersey](#nyt)), the study only explores meeting to up to 10 people on average per day. 
 
 ## Methodology
 
@@ -92,7 +106,7 @@ Steps to reproduce data:
 
 1. Open the terminal app (to execute the following commands, paste them and hit enter)
    
-   <img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/Open%20Terminal.png" alt="" width="353">
+   <img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/Open%20Terminal.png" alt="" width="296">
 
 2. Clone the repository `git clone https://github.com/LivelyCarpet87/BIO-Capstone-Project`
 
@@ -100,7 +114,7 @@ Steps to reproduce data:
 
 4. execute `python3 ./CapstoneMethod1V3.py` and the output should be similar to ([Link to code](https://github.com/LivelyCarpet87/BIO-Capstone-Project/blob/master/Code/CapstoneMethod1V3.py)):
 
-<img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/TerminalScreenshot.png" alt="" width="801">
+<img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/TerminalScreenshot.png" alt="" width="563">
 
 ## Data Collected
 
@@ -108,21 +122,20 @@ Steps to reproduce data:
 
 | **Avg. People Met/Day** | **Predicted Length of Epidemic (Days)** | Avg. People Met/Day [Continued] | Predicted Length of Epidemic (Days) [Continued] |
 | ----------------------- | --------------------------------------- | ------------------------------- | ----------------------------------------------- |
-| 0.0                     | 48                                      | 0.15                            | 52                                              |
-| 0.05                    | 49                                      | 0.2                             | 54                                              |
-| 0.1                     | 51                                      |                                 |                                                 |
+| 0.0                     | 48                                      | 0.1                             | 51                                              |
+| 0.05                    | 49                                      | 0.15                            | 52                                              |
 
 **\* The full data table can be found below in [Appendix 1](#appendix-1)**
 
 ## Graphs
 
-<img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedData.png" alt="" width="636">
+<img title="" src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/Images/GraphedDataV2.png" alt="" width="413">
 
 ## CER
 
 **Claim:**
 
-The length of the epidemic initially increases when the average number of persons met per day increases because it increases the chances for the virus to spread but not quickly enough to increase the immune population to slow its spread. The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner.
+The hypothesis is not supported. The projected length of the epidemic initially increases when the average number of persons met per day is less than 2.1 persons because it increases the chances for the virus to spread but not spreading as much as to increase the immune population to slow its spread. The projected length of the epidemic decreases when the avg. amount of people met per day increases above 2.1 persons because herd immunity occurs sooner. 
 
 **Evidence 1:**
 
@@ -130,7 +143,7 @@ The projected length of the pandemic is lowest when each member of the populatio
 
 **Reasoning 1:**
 
-When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays herd immunity in the country by the longest possible while maintaining a steady number of infectious people.  
+When people interact very little, the virus has very little chance to spread, thereby the infectious population quickly decreases below 1000 persons because little to no people are infected as the infectious recover. This matches with the data showing that the pandemic is projected to be over the quickest if everyone isolated themselves completely. However, as people meet about 2 other people per day, the virus is able to sustain the infectious population the longest as the newly infectious per day is closest to the number of people deceased or recovered per day initially. This allows the virus to last longer as it delays the occurrence of herd immunity in the country by the longest possible while maintaining a steady number of infectious people propagating the virus. The increase in the projected length of the pandemic as the average number of people met per day increases when the average number of persons met per day is less than 2.1 persons. This supports the claim that the projected length of the epidemic initially increases as the average number of people met per day increases  and supports the hypothesis. 
 
 **Evidence 2:**
 
@@ -138,7 +151,7 @@ The projected length of the pandemic decreases as the amount of people met per d
 
 **Reasoning 2:**
 
-Because the increased contact between persons spreads the virus easier, a greater number of people become infected initially but recover and remain immune to the disease. Because of the initial outbreak infects more people, more people are rendered immune to the disease. This slows and eventually halts the spread of the virus, preventing the epidemic from lasting too long. However, this causes a sudden surge in projected infectious population and risks overwhelming hospitals, as well as exposing more people to the virus, increasing total projected deaths. 
+Because the increased contact between persons spreads the virus faster, a greater number of people become infected initially but recover and remain immune to the disease. Because of the initial outbreak infects more people, more people are rendered immune to the disease. This slows and eventually halts the spread of the virus, preventing the epidemic from lasting too long. This contradicts the hypothesis and proves that the hypothesis is wrong. However, this causes a sudden surge in projected infectious population and risks overwhelming hospitals, as well as exposing more people to the virus, increasing total projected deaths. 
 
 ## Strengths & Limitations
 
@@ -150,9 +163,9 @@ Because the increased contact between persons spreads the virus easier, a greate
 
 ### Limitations
 
-1. It doesn't account for births or deaths from causes other than COVID-19. Because of this, the susceptible population will always slowly increase, the real-world result should be longer than the projected length by the SIRD model. A possible improvement would be to change the model add new births to the susceptible population at a steady rate and remove those deceased (due to other causes) from the susceptible (${- \frac{S(t)}{N-D(t)}\times Deaths}$), infectious ($-\frac{I(t)}{N-D(t)}\times Deaths$), and recovered population ($-\frac{I(t)}{N-D(t)}\times Deaths$), and  add the deceased from other causes to the Deceased population. 
+1. It doesn't account for births or deaths from causes other than COVID-19. More people are born into the susceptible population than those dying in the susceptible population. Because of this, the susceptible population will always slowly increase, the real-world result should be longer than the projected length by the SIRD model. A possible improvement would be to change the model add new births to the susceptible population at a steady rate and remove those deceased (due to other causes) from the susceptible (${- \frac{S(t)}{N-D(t)}\times Deaths}$), infectious ($-\frac{I(t)}{N-D(t)}\times Deaths$), and recovered population ($-\frac{I(t)}{N-D(t)}\times Deaths$), and add the deceased from other causes to the Deceased population. 
 
-2. It cannot model the unique behaviors of a community, which is an issue since the population does not mix homogeneously as according to the assumptions. Because of this, the model likely predicts a value that would be greater than real life if different communities avoid other communities or its members during the epidemic. A possible improvement would be to create a rule based simulation of actual persons in a mock community. That way, population members can behave differently and better model the country. 
+2. It cannot model the unique behaviors of a community, which is an issue since the population does not mix homogeneously as according to the assumptions. Because of this, the model likely predicts a value that would be greater than real life if different communities avoid other communities or its members during the epidemic. A possible improvement would be to create a rule-based simulation of actual persons in a mock community. That way, population members can behave differently and better model the country. 
 
 3. It does not account for self-isolation. Because of the model assumes every infectious person is infecting people and the population is mixing homogeneously, this causes the model's projected length of the epidemic to be longer than the real world value. A possible improvement would be to have an Infectious population that is quarantined as well as a infectious population. Thus, there is a chance the person gets quarantined and cannot infect others.
 
@@ -162,19 +175,21 @@ Because the increased contact between persons spreads the virus easier, a greate
 
 ## Works Cited
 
-Bi, Qifang, et al. ¡§Epidemiology and Transmission of COVID-19 in 391 Cases and 1286 of Their Close Contacts in Shenzhen, China: a Retrospective Cohort Study.¡¨ *The Lancet*, The Lancet, 2020, www.thelancet.com/pdfs/journals/laninf/PIIS1473-3099(20)30287-5.pdf.
+<a id="bi">Bi, Qifang, et al. ¡§Epidemiology and Transmission of COVID-19 in 391 Cases and 1286 of Their Close Contacts in Shenzhen, China: a Retrospective Cohort Study.¡¨ *The Lancet*, The Lancet, 2020, www.thelancet.com/pdfs/journals/laninf/PIIS1473-3099(20)30287-5.pdf.</a>
 
-¡§Cases Overview.¡¨ *Google Search*, Google, 3 May 2020, www.google.com/search?q=covid%2B19%2Bcases%2Busa.
+<a id="cases-overview">¡§Cases Overview.¡¨ *Google Search*, Google, 3 May 2020, www.google.com/search?q=covid%2B19%2Bcases%2Busa.</a>
 
-Hamzah, Fairoza Amira Binti, et al. ¡§CoronaTracker: World-Wide COVID-19 Outbreak Data Analysis and Prediction Fairoza Amira Binti Hamzaha.¡¨ *CoronaTracker: World-Wide COVID-19 Outbreak Data Analysis and Prediction*, World Health Organization, 2020, www.who.int/bulletin/online_first/20-255695.pdf.
+<a id="hamzah">Hamzah, Fairoza Amira Binti, et al. ¡§CoronaTracker: World-Wide COVID-19 Outbreak Data Analysis and Prediction Fairoza Amira Binti Hamzaha.¡¨ *CoronaTracker: World-Wide COVID-19 Outbreak Data Analysis and Prediction*, World Health Organization, 2020, www.who.int/bulletin/online_first/20-255695.pdf.</a>
 
-Horn, Austin. ¡§More Than 1 Million People Have Recovered From COVID-19 Worldwide.¡¨ *NPR*, NPR, 1 May 2020, www.npr.org/sections/coronavirus-live-updates/2020/05/01/849065983/more-than-1-million-people-have-recovered-from-covid-19-worldwide.
+<a id="horn">Horn, Austin. ¡§More Than 1 Million People Have Recovered From COVID-19 Worldwide.¡¨ *NPR*, NPR, 1 May 2020, www.npr.org/sections/coronavirus-live-updates/2020/05/01/849065983/more-than-1-million-people-have-recovered-from-covid-19-worldwide.</a>
 
-Meier, Robert J. ¡°A Critical Analysis of Corona Related Data: What the More Reliable Data Can Imply for Western-Europe.¡± *Applied Sciences*, vol. 10, no. 10, 2020, p. 3398., doi:10.3390/app10103398.
+<a id="meier">Meier, Robert J. ¡°A Critical Analysis of Corona Related Data: What the More Reliable Data Can Imply for Western-Europe.¡± *Applied Sciences*, vol. 10, no. 10, 2020, p. 3398., doi:10.3390/app10103398.</a>
 
-"'Things will get worse before they get better': Dr. Anthony Fauci | ABC News" *YouTube,* uploaded by ABC News, 15 March 2020, https://www.youtube.com/watch?v=zkH2rLIeU7A
+<a id="nyt">¡°New Jersey Allows Gatherings and Opens Campgrounds.¡± *The New York Times*, The New York Times, 23 May 2020, www.nytimes.com/2020/05/22/nyregion/coronavirus-ny-nj-live-cases-deaths.html. </a>
 
-¡§U.S. and World Population Clock.¡¨ *Population Clock*, 3 May 2020, www.census.gov/popclock/.
+<a id="abc-news">"''Things will get worse before they get better': Dr. Anthony Fauci | ABC News" *YouTube,* uploaded by ABC News, 15 March 2020, https://www.youtube.com/watch?v=zkH2rLIeU7A</a>
+
+<a id="population">¡§U.S. and World Population Clock.¡¨ *Population Clock*, 3 May 2020, www.census.gov/popclock/.</a>
 
 ## Appendix 1
 
@@ -230,9 +245,9 @@ Meier, Robert J. ¡°A Critical Analysis of Corona Related Data: What the More Rel
 | 2.25                    | 655                                     | 4.8                                 | 153                                                 | 7.35                                | 115                                                 | 9.9                                 | 103                                                 |
 | 2.3                     | 604                                     | 4.85                                | 152                                                 | 7.4                                 | 114                                                 | 9.95                                | 103                                                 |
 | 2.35                    | 557                                     | 4.9                                 | 150                                                 | 7.45                                | 114                                                 | 10.0                                | 103                                                 |
-| 2.4                     | 517                                     | 4.95                                | 149                                                 | 7.5                                 | 114                                                 | <br>                                | <br>                                                |
-| 2.45                    | 482                                     | 5.0                                 | 148                                                 | 7.55                                | 113                                                 | <br>                                | <br>                                                |
-| 2.5                     | 452                                     | 5.05                                | 146                                                 | 7.6                                 | 113                                                 | <br>                                | <br>                                                |
+| 2.4                     | 517                                     | 4.95                                | 149                                                 | 7.5                                 | 114                                                 |                                     |                                                     |
+| 2.45                    | 482                                     | 5.0                                 | 148                                                 | 7.55                                | 113                                                 |                                     |                                                     |
+| 2.5                     | 452                                     | 5.05                                | 146                                                 | 7.6                                 | 113                                                 |                                     |                                                     |
 
 **Qualitative Data: Reaching Herd Immunity Threshold (HIT) to End Social Distancing**
 
