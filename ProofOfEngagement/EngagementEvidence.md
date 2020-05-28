@@ -1,4 +1,8 @@
-Github Commit History
+# Github Commit History
+
+<img src="https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/ProofOfEngagement/CommitHistory1.png" title="" alt="" width="728">
+
+For reference, my account username is LivelyCarpet87 and I am the sole contributor to this repository. This is my repository and not a fork of other's work. 
 
 # Versions of Code (Major)
 
@@ -138,6 +142,10 @@ for i in range(0,161):
 
 # Screenshots of Execution
 
+![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/ProofOfEngagement/TerminalOutput1.png)
 
+![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/ProofOfEngagement/TerminalOutput2.png)
 
 # Screenshots of errors
+
+![](https://raw.githubusercontent.com/LivelyCarpet87/BIO-Capstone-Project/master/ProofOfEngagement/PythonError.png)

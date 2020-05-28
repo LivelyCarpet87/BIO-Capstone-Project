@@ -60,5 +60,5 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
 
 sim(7,N,initialInfectious,initialRecovered,gamma,mu,a)
 #simulate contact/day from 0 to 500 per day
-for i in range(0,161):
+for i in range(0,201):
     sim(float(i)/20,N,initialInfectious,initialRecovered,gamma,mu,a)
