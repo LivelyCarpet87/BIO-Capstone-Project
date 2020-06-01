@@ -21,11 +21,7 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
     Recovered = array.array('d', [initialRecovered])
     Deceased = array.array('d', [0])
     days=0
-#    if b_input != 0:
-#        R0=a*b_input*14
-#        HIT=1-1/float(R0)
-#    else:
-#        HIT=0
+
     #simulate a day of interactions if the count of Infectious population >= 1
     for i in range(1,36500):
         #calculate changes in each population
@@ -50,15 +46,11 @@ def sim(b_input,N,initialInfectious,initialRecovered,gamma,mu,a):
             if (Recovered[len(Recovered)-1]<=HIT*N):
                 print(","+str(b_input) + ","+ str(days) + ",Herd Immunity For Activity Without Distancing Not Achieved")
                 break
-            #print( str(float(b_input)) + "," + str(days) + ","+ str(round(Deceased[len(Deceased)-1],0)) )
             else:
                 print(","+str(b_input) + ","+ str(days) + ",Herd Immunity For Activity Without Distancing Achieved")
                 break
-        #print(Susceptible[len(Susceptible)-1],Infectious[len(Infectious)-1],Recovered[len(Recovered)-1],Deceased[len(Deceased)-1])
-
 #print the contact/day, total days until infection ends, maximum infectious population, deceased population increase in CSV format
 
-sim(7,N,initialInfectious,initialRecovered,gamma,mu,a)
 #simulate contact/day from 0 to 500 per day
 for i in range(0,201):
     sim(float(i)/20,N,initialInfectious,initialRecovered,gamma,mu,a)
